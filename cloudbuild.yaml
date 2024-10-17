@@ -14,5 +14,3 @@ steps:
   # - script: |
   #     gcloud run deploy changtalk-run --image us-west1-docker.pkg.dev/quixotic-skill-402605/test/${tag}/test --region us-west2 --platform managed --allow-unauthenticated
 
-options:
-  logging: CLOUD_LOGGING_ONLY
