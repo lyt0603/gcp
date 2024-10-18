@@ -12,7 +12,7 @@ steps:
       - '--rm'
       - '-v'
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA'
+      - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:$SHORT_SHA'
       - 'images'
       - 'scan'
       - '--address'
