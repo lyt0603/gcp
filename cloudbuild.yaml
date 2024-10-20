@@ -12,7 +12,7 @@ steps:
       - '--rm'
       - '-v'
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:$SHORT_SHA'
+      - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
       - 'images'
       - 'scan'
       - '--address'
