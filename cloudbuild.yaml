@@ -8,21 +8,21 @@ steps:
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
     args:
-      - 'run'
-      - '--rm'
-      - '-v'
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
-      - 'images'
-      - 'scan'
-      - '--address'
-      - '${_PCC_CONSOLE_URL}'
-      - '--user'
-      - '${_PCC_USER}'
-      - '--password'
-      - '${_PCC_PASS}'
-      - '--details'
-      - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.'}
+    - 'run'
+    - '--rm'
+    - '-v'
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
+    - 'images'
+    - 'scan'
+    - '--address'
+    - '${_PCC_CONSOLE_URL}'
+    - '--user'
+    - '${_PCC_USER}'
+    - '--password'
+    - '${_PCC_PASS}'
+    - '--details'
+    - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.'}
 
 
   # 2. Artifact Registry에 푸시하는 단계
