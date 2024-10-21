@@ -14,8 +14,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
     args:
-      - '-c'
-      - 'docker run'
+      - 'run'
       - '--rm'
       - '-v'
       - '/var/run/docker.sock:/var/run/docker.sock'
