@@ -22,7 +22,7 @@ steps:
     - '--password=$$lytpassword'
     - '--details'
     - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
-#    secretEnv: ['lytuser', 'lytpassword']
+    secretEnv: ['lytuser', 'lytpassword']
 
 #availableSecrets:
 #    secretManager:
