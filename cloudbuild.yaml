@@ -18,8 +18,10 @@ steps:
     - 'scan'
     - '--address'
     - '${_PCC_CONSOLE_URL}'
-    - '--user=$$lytuser'
-    - '--password=$$lytpassword'
+    - '--user'
+    - '${_PCC_USER}'
+    - '--password'
+    - '${_PCC_PASS}'
     - '--details'
     - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
     secretEnv: ['lytuser', 'lytpassword']
