@@ -23,9 +23,9 @@ steps:
       - '--address'
       - '${_PCC_CONSOLE_URL}'
       - '--user'
-      - '$prismauser'
+      - '$lytuser'
       - '--password'
-      - '$prismapassword'
+      - '$lytpassword'
       - '--details'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
     secretEnv: ['lytuser', 'lytpassword']
