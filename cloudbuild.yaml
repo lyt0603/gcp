@@ -21,7 +21,6 @@ steps:
     - '${_PCC_USER}'
     - '--password'
     - '${_PCC_PASS}'
-    - '--details'
     - 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.'
 
 
