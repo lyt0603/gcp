@@ -12,7 +12,6 @@ steps:
 
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
     args:
       - 'run'
       - '--rm'
