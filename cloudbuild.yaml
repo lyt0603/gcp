@@ -2,34 +2,27 @@ steps:
 
 
   # 1. 도커 이미지 빌드
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA', '.']
 
   #Image Scan
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-  - 'run'
-  - '--rm'
-  - '-v'
-  - '/var/run/docker.sock:/var/run/docker.sock'
-  - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
-  - 'images'
-  - 'scan'
-  - '--address'
-  - '${_PCC_CONSOLE_URL}'
-  - '--user=$$lytuser'
-  - '--password=$$lytpassword'
-  - '--details'
-  - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
-  secretEnv: ['lytuser', 'lytpassword']
-
-availableSecrets:
-  secretManager:
-  - versionName: projects/843668447202/secrets/lytuser/versions/1
-    env: 'lytuser'
-  - versionName: projects/843668447202/secrets/lytpassword/versions/1
-    env: 'lytpassword'
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+    - 'run'
+    - '--rm'
+    - '-v'
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
+    - 'images'
+    - 'scan'
+    - '--address'
+    - '${_PCC_CONSOLE_URL}'
+    - '--user=$$lytuser'
+    - '--password=$$lytpassword'
+    - '--details'
+    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
+    secretEnv: ['lytuser', 'lytpassword']
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
@@ -42,3 +35,10 @@ availableSecrets:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/843668447202/secrets/lytuser/versions/1
+    env: 'lytuser'
+  - versionName: projects/843668447202/secrets/lytpassword/versions/1
+    env: 'lytpassword'
