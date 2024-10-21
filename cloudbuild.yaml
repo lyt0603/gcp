@@ -8,8 +8,8 @@ steps:
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
     args:
-      - 'prismauser=$$lytuser'
-      - 'prismapassword=$$lytpassword'
+      - '-c'
+      - 'echo prismauser=$$lytuser && echo prismapassword=$$lytpassword'
       - 'run'
       - '--rm'
       - '-v'
@@ -26,6 +26,7 @@ steps:
       - '--details'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
     secretEnv: ['lytuser', 'lytpassword']
+  
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
