@@ -19,9 +19,9 @@ steps:
       - 'scan'
       - '--address'
       - '${_PCC_CONSOLE_URL}'
-      - '--user
+      - '--user'
       - '$prismauser'
-      - '--password
+      - '--password'
       - '$prismapassword'
       - '--details'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
