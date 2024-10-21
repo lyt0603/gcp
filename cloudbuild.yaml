@@ -13,8 +13,6 @@ steps:
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
     args:
-      - '-c'
-      - 'echo prismauser=$$lytuser && echo prismapassword=$$lytpassword'
       - 'run'
       - '--rm'
       - '-v'
