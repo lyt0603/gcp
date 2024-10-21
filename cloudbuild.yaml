@@ -23,6 +23,14 @@ steps:
     - '${_PCC_PASS}'
     - "--details"
     - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
+    secretEnv: ['prismauser', 'prismapassword']
+
+secrets:
+  - secret: prismauser
+    version: 'latest'
+  - secret: prismapassword
+    version: 'latest'
+
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
