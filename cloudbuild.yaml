@@ -3,7 +3,7 @@ steps:
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/gcp/lyt-test:$SHORT_SHA', '.']
+    args: ['build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA', '.']
 
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
@@ -22,11 +22,11 @@ steps:
     - '--password'
     - '${_PCC_PASS}'
     - "--details"
-    - 'us-west1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/gcp/lyt-test:$SHORT_SHA'
+    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/gcp/lyt-test:$SHORT_SHA' ]
+    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA' ]
             
   # 3. Cloud Run 동작
   # - name: 'gcr.io/cloud-builders/gcloud'
