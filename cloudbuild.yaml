@@ -27,9 +27,9 @@ steps:
 
 availableSecrets:
    secretManager:
-   - versionName: projects/843668447202/secrets/prismauser/versions/latest
+   - versionName: projects/${PROJECT_ID}/secrets/prismauser/versions/latest
      env: 'prismauser'
-   - versionName: projects/843668447202/secrets/prismapassword/versions/latest
+   - versionName: projects/${PROJECT_ID}/secrets/prismapassword/versions/latest
      env: 'prismapassword'
 
   # 2. Artifact Registry에 푸시하는 단계
