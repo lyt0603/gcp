@@ -7,6 +7,7 @@ steps:
 
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
     args:
       - 'run'
       - '--rm'
@@ -17,16 +18,14 @@ steps:
       - 'scan'
       - '--address'
       - '${_PCC_CONSOLE_URL}'
-      - '--user'
-      - '$$lytuser'
-      - '--password'
-      - '$$lytpassword'
+      - '--user=$$lytuser'
+      - '--password=$$lytpassword'
       - '--details'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
     secretEnv: ['lytuser', 'lytpassword']
 
 availableSecrets:
-   secretManager:
+    secretManager:
      - versionName: projects/${PROJECT_ID}/secrets/lytuser/versions/latest
        env: 'lytuser'
      - versionName: projects/${PROJECT_ID}/secrets/lytpassword/versions/latest
