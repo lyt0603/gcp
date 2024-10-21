@@ -22,7 +22,7 @@ steps:
     - '--password'
     - 'OfZF2gyd1SwRQ5Zvn/h2DGuC+yo='
     - "--details"
-    - 'us-west1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/gcp/lyt-test:$SHORT_SHA', '.'
+    - 'us-west1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/gcp/lyt-test:$SHORT_SHA'
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
