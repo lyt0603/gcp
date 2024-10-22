@@ -6,8 +6,7 @@ steps:
     args: ['build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'echo $$lytuser && echo $$lytpassword']
+    args: ['echo $$lytuser && echo $$lytpassword']
     secretEnv: ['lytuser', 'lytpassword']
 
   #Image Scan
