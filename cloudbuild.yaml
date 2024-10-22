@@ -1,0 +1,11 @@
+# 1. 도커 이미지 빌드
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',   
+      '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
+    id : 'build'
+
+# 2. Artifact Registry에 푸시하는 단계
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest' ]
+    id : 'push'
