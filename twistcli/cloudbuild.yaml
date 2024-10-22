@@ -1,4 +1,5 @@
 # 1. 도커 이미지 빌드
+steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
     id : 'build'
