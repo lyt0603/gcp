@@ -21,7 +21,6 @@ RUN chmod +x /usr/local/bin/twistcli
 
 
 RUN ls -l /usr/local/bin/twistcli
-RUN file /usr/local/bin/twistcli
 
 # Set entrypoint to twistcli
 ENTRYPOINT ["/usr/local/bin/twistcli"]
