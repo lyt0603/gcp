@@ -28,10 +28,19 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA' ]
             
-  # 3. Cloud Run 동작
+
   - name: 'gcr.io/cloud-builders/gcloud'
-  - script: |
-         gcloud run deploy changtalk-run --image asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA --region asia-northeast3 --platform managed --allow-unauthenticated
+    args:
+      - 'run'
+      - 'deploy'
+      - 'changtalk-run'
+      - '--image'
+      - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
+      - '--region'
+      - 'asia-northeast3'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
 
 options:
   logging: CLOUD_LOGGING_ONLY
