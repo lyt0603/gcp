@@ -20,4 +20,4 @@ RUN mv ./twistcli /usr/local/bin/
 RUN chmod +x /usr/local/bin/twistcli
 
 # Set entrypoint
-ENTRYPOINT ["twistcli"]
+ENTRYPOINT [ "/usr/local/bin/twistcli", "twistcli"]
