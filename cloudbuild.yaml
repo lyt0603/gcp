@@ -29,9 +29,9 @@ steps:
     args: [ 'push', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA' ]
             
   # 3. Cloud Run 동작
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  # - script: |
-  #     gcloud run deploy changtalk-run --image us-west1-docker.pkg.dev/quixotic-skill-402605/test/${tag}/test --region us-west2 --platform managed --allow-unauthenticated
+  - name: 'gcr.io/cloud-builders/gcloud'
+  - script: |
+         gcloud run deploy changtalk-run --image asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA --region asia-northeast3 --platform managed --allow-unauthenticated
 
 options:
   logging: CLOUD_LOGGING_ONLY
