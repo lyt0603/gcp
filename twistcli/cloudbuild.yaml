@@ -2,10 +2,10 @@
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',   
-      '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
+      '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
     id : 'build'
 
 # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest' ]
+    args: [ 'push', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest' ]
     id : 'push'
