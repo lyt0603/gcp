@@ -1,8 +1,6 @@
 # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',   
-      '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
+    args: [ 'build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/twistlock:latest', '.']
     id : 'build'
 
 # 2. Artifact Registry에 푸시하는 단계
