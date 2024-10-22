@@ -19,5 +19,7 @@ RUN curl --progress-bar -L --header "authorization: Bearer eyJhbGciOiJIUzI1NiIsI
 RUN mv ./twistcli /usr/local/bin/ 
 RUN chmod +x /usr/local/bin/twistcli
 
+RUN uname -m
+
 # Set entrypoint
 ENTRYPOINT [ "/usr/local/bin/twistcli", "twistcli"]
