@@ -4,7 +4,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',   
-      '-t', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest', 'twistlock/']
+      '-t', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest']
     id : 'build'
 
 # 2. Artifact Registry에 푸시하는 단계
