@@ -33,7 +33,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'changtalk-run'
+      - 'crypto-app-test'
       - '--image'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
       - '--region'
