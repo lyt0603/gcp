@@ -7,7 +7,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-c', 'echo lytuser=$$lytuser && echo lytpassword=$$lytpassword']
+    args: ['-c', 'echo $$lytuser && echo $$lytpassword']
     secretEnv: ['lytuser', 'lytpassword']
 
   #Image Scan
