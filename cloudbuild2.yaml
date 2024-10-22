@@ -1,0 +1,50 @@
+steps:
+
+
+  # 1. 도커 이미지 빌드
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'echo user=$$lytuser && echo password=$$lytpassword']
+    secretEnv: ['lytuser', 'lytpassword']
+
+  #Image Scan
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - 'run'
+      - '--rm'
+      - '-v'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
+      - 'images'
+      - 'scan'
+      - '--address'
+      - '${_PCC_CONSOLE_URL}'
+      - '--user $user'
+      - '--password $password'
+      - '--details'
+      - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA'
+    secretEnv: ['lytuser', 'lytpassword']
+  
+
+  # 2. Artifact Registry에 푸시하는 단계
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA' ]
+            
+  # 3. Cloud Run 동작
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  # - script: |
+  #     gcloud run deploy changtalk-run --image us-west1-docker.pkg.dev/quixotic-skill-402605/test/${tag}/test --region us-west2 --platform managed --allow-unauthenticated
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/843668447202/secrets/lytuser/versions/latest
+      env: 'lytuser'
+    - versionName: projects/843668447202/secrets/lytpassword/versions/latest
+      env: 'lytpassword'
