@@ -1,20 +1,26 @@
 FROM ubuntu:latest
 
-# Install dependencies and clean up
+# Update and install packages in one layer, and clean up afterwards
 RUN apt update -y && \
     apt install -y sudo python3 python3-pip git curl wget node-hawk node-minimist && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Download twistcli binary
-RUN curl --progress-bar -L \
-    --header "authorization: Bearer $$twistcli_TOKEN" \
-    https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; \
-    chmod a+x twistcli
+# Install AWS CLI and Boto3
+#RUN pip3 --no-cache-dir install --upgrade awscli boto3
+
+
+# Make sure twistcli is executable
+
+# Copy twistcli to the appropriate directory
+
+RUN curl --progress-bar -L --header "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibHl0QHUtaW5mcmEuY29tIiwicm9sZSI6ImFkbWluIiwicm9sZVBlcm1zIjpbWzI1NSwyNTUsMjU1LDI1NSwyNTUsOTVdLFsyNTUsMjU1LDI1NSwyNTUsMjU1LDk1XV0sInNlc3Npb25UaW1lb3V0U2VjIjo1MTIsInNhYXNUb2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0lpT2lKc2VYUkFkUzFwYm1aeVlTNWpiMjBpTENKelpYSjJhV05sVlhOaFoyVlBibXg1SWpwMGNuVmxMQ0ptYVhKemRFeHZaMmx1SWpwbVlXeHpaU3dpY0hKcGMyMWhTV1FpT2lJeE1qQXdNelF4TlRFeE5URTBPVEU1T1RNMklpd2lhWEJCWkdSeVpYTnpJam9pTXpVdU1qQXdMakV5TXk0eU16WWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzVxY0M1d2NtbHpiV0ZqYkc5MVpDNXBieUlzSW5KbGMzUnlhV04wSWpvd0xDSjFjMlZ5VW05c1pWUjVjR1ZFWlhSaGFXeHpJanA3SW1oaGMwOXViSGxTWldGa1FXTmpaWE56SWpwbVlXeHpaWDBzSW5WelpYSlNiMnhsVkhsd1pVNWhiV1VpT2lKVGVYTjBaVzBnUVdSdGFXNGlMQ0pwYzFOVFQxTmxjM05wYjI0aU9tWmhiSE5sTENKc1lYTjBURzluYVc1VWFXMWxJam94TnpJNU5qVTJOakkxTXpJNUxDSmhkV1FpT2lKb2RIUndjem92TDJGd2FTNXFjQzV3Y21semJXRmpiRzkxWkM1cGJ5SXNJblZ6WlhKU2IyeGxWSGx3WlVsa0lqb3hMQ0poZFhSb0xXMWxkR2h2WkNJNklsQkJVMU5YVDFKRUlpd2ljMlZzWldOMFpXUkRkWE4wYjIxbGNrNWhiV1VpT2lKVkxVbHVabkpoSUVOdkxpd2dUSFJrTGlBdElETTJOekl4TlRFek1EZzFOVEV4TVRNMU56QWlMQ0p6WlhOemFXOXVWR2x0Wlc5MWRDSTZOakFzSW5WelpYSlNiMnhsU1dRaU9pSmpaVGt6WWpVMU1pMDVOak0wTFRSbVlUVXRPRE0xT0MwMVlqQXpabVk0WTJKaU16VWlMQ0pvWVhORVpXWmxibVJsY2xCbGNtMXBjM05wYjI1eklqcDBjblZsTENKbGVIQWlPakUzTWprMk5UY3lNallzSW1saGRDSTZNVGN5T1RZMU5qWXlOaXdpZFhObGNtNWhiV1VpT2lKc2VYUkFkUzFwYm1aeVlTNWpiMjBpTENKMWMyVnlVbTlzWlU1aGJXVWlPaUpUZVhOMFpXMGdRV1J0YVc0aWZRLk5yQW9fUHNiMkxCVEdGQ3kyelpPMlNEOVFLa01Mb1BYS2xoY3RId1ZkRTgiLCJpc3MiOiJ0d2lzdGxvY2siLCJleHAiOjE3Mjk2NjAzMTR9.aJMZs8heC1iNHOD-DrDm88lUamayefdQW93Tw_zPjXg" https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
 
 RUN mv ./twistcli /usr/local/bin/ 
 RUN chmod +x /usr/local/bin/twistcli
-RUN ls -l /usr/local/bin/twistcli 
 
-# Set the entrypoint
+
+RUN ls -l /usr/local/bin/twistcli
+
+# Set entrypoint to twistcli
 ENTRYPOINT ["/usr/local/bin/twistcli"]
