@@ -4,15 +4,15 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',   
-      '--build-arg', 'twistcli_TOKEN=$$twistcli_TOKEN',  # 빌드 아규먼트로 보안 변수를 Dockerfile에 전달
       '-t', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest', 'twistcli/']
-    id: 'build'
-    secretEnv: ['twistcli_TOKEN']  # Secret Manager에서 twistcli_TOKEN 보안 변수 사용
+    id : 'build'
+    secretEnv: ['twistcli_TOKEN']
 
 # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest' ]
-    id: 'push'
+    id : 'push'
+  
 
 options:
   logging: CLOUD_LOGGING_ONLY
