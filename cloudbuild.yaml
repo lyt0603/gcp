@@ -18,7 +18,7 @@ steps:
       - |
         docker run --rm \
         -v /var/run/docker.sock:/var/run/docker.sock \
-        asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest \
+        asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:suc \
         images scan --address ${_PCC_CONSOLE_URL} \
         --user $$lytuser --password $$lytpassword \
         --details asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA
