@@ -1,27 +1,23 @@
-steps:
+FROM ubuntu:latest
 
-# 1. 도커 이미지 빌드
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        docker build \
-        --build-arg twistcli_TOKEN=$$twistcli_TOKEN \
-        -t asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest twistcli/
-    id: 'build'
-    secretEnv: ['twistcli_TOKEN']  # Secret Manager에서 twistcli_TOKEN 보안 변수 사용
+# Build arguments
+ARG twistcli_TOKEN  # 빌드 시 전달받는 아규먼트
 
-# 2. Artifact Registry에 푸시하는 단계
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest' ]
-    id: 'push'
+# Install dependencies and clean up
+RUN apt update -y && \
+    apt install -y sudo python3 python3-pip git curl wget node-hawk node-minimist && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
-options:
-  logging: CLOUD_LOGGING_ONLY
+# Download twistcli binary using the twistcli_TOKEN
+RUN curl --progress-bar -L \
+    --header "authorization: Bearer ${twistcli_TOKEN}" \
+    https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; \
+    chmod a+x twistcli
 
-# GCP Secret Manager 에 Token 을 등록해야 함.
-availableSecrets:
-  secretManager:
-  - versionName: projects/${PROJECT_ID}/secrets/twsitcli_TOKEN/versions/latest
-    env: 'twistcli_TOKEN'
+RUN mv ./twistcli /usr/local/bin/ 
+RUN chmod +x /usr/local/bin/twistcli
+RUN ls -l /usr/local/bin/twistcli 
+
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/twistcli"]

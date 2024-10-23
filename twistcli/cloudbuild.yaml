@@ -2,10 +2,13 @@ steps:
 
 # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',   
-      '--build-arg', 'twistcli_TOKEN=$$twistcli_TOKEN',  # 빌드 아규먼트로 보안 변수를 Dockerfile에 전달
-      '-t', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest', 'twistcli/']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker build \
+        --build-arg twistcli_TOKEN=$$twistcli_TOKEN \
+        -t asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:latest twistcli/
     id: 'build'
     secretEnv: ['twistcli_TOKEN']  # Secret Manager에서 twistcli_TOKEN 보안 변수 사용
 
