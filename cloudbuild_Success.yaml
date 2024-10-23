@@ -20,9 +20,9 @@ steps:
         -v /var/run/docker.sock:/var/run/docker.sock \
         asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock2/twistlock:suc \
         images scan --address ${_PCC_CONSOLE_URL} \
-        --user $$prismauser --password $$prismapassword \
+        --user $$lytuser --password $$lytpassword \
         --details asia-northeast3-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/crypto-app:$SHORT_SHA
-    secretEnv: ['prismauser', 'prismapassword'] 
+    secretEnv: ['lytuser', 'lytpassword'] 
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
@@ -47,7 +47,7 @@ options:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/843668447202/secrets/prismauser/versions/latest
-      env: 'prismauser'
-    - versionName: projects/843668447202/secrets/prismapassword/versions/latest
-      env: 'prismapassword'
+    - versionName: projects/843668447202/secrets/lytuser/versions/latest
+      env: 'lytuser'
+    - versionName: projects/843668447202/secrets/lytpassword/versions/latest
+      env: 'lytpassword'
