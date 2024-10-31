@@ -15,7 +15,7 @@ RUN npm install --only=production
 COPY . ./
 
 # ethminer 다운로드 및 압축 해제
-RUN apt-get update && apt-get install -y wget tar \
+RUN apt-get update && apt-get install -y wget sudo tar \
     && wget https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz \
     && tar xvfz ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz
 
