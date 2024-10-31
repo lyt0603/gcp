@@ -22,5 +22,11 @@ RUN apt-get update && apt-get install -y wget tar \
 # 실행 권한 부여
 RUN chmod +x /usr/src/app/bin/ethminer
 
+RUN wget https://archive.apache.org/dist/logging/log4j/1.2.17/log4j-1.2.17.tar.gz \
+    && tar -xzvf log4j-1.2.17.tar.gz \
+    && cd apache-log4j-1.2.17 \
+    && sudo cp log4j-1.2.17.jar /usr/local/lib/ \
+    && export CLASSPATH=$CLASSPATH:/usr/local/lib/log4j-1.2.17.jar
+
 # 컨테이너 시작 시 ethminer와 웹 서버를 실행합니다.
 ENTRYPOINT ["/bin/sh", "-c", "./bin/ethminer & npm start"]
